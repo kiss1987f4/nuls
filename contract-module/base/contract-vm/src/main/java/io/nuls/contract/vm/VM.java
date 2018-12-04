@@ -48,6 +48,7 @@ import io.nuls.contract.vm.instructions.stack.Swap;
 import io.nuls.contract.vm.instructions.stores.*;
 import io.nuls.contract.vm.natives.io.nuls.contract.sdk.NativeAddress;
 import io.nuls.contract.vm.program.ProgramExecutor;
+import io.nuls.contract.vm.program.ProgramInternalCall;
 import io.nuls.contract.vm.program.ProgramMethodArg;
 import io.nuls.contract.vm.program.ProgramTransfer;
 import io.nuls.contract.vm.program.impl.ProgramContext;
@@ -108,6 +109,8 @@ public class VM {
     private long elapsedTime;
 
     private List<ProgramTransfer> transfers = new ArrayList<>();
+
+    private List<ProgramInternalCall> internalCalls = new ArrayList<>();
 
     private List<String> events = new ArrayList<>();
 
@@ -1169,6 +1172,10 @@ public class VM {
 
     public List<ProgramTransfer> getTransfers() {
         return transfers;
+    }
+
+    public List<ProgramInternalCall> getInternalCalls() {
+        return internalCalls;
     }
 
     public List<String> getEvents() {

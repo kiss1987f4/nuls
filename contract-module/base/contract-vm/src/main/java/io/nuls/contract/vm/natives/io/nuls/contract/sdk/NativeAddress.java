@@ -24,11 +24,13 @@
  */
 package io.nuls.contract.vm.natives.io.nuls.contract.sdk;
 
+import io.nuls.contract.sdk.Address;
 import io.nuls.contract.vm.*;
 import io.nuls.contract.vm.code.MethodCode;
 import io.nuls.contract.vm.exception.ErrorException;
 import io.nuls.contract.vm.natives.NativeMethod;
 import io.nuls.contract.vm.program.ProgramCall;
+import io.nuls.contract.vm.program.ProgramInternalCall;
 import io.nuls.contract.vm.program.ProgramResult;
 import io.nuls.contract.vm.program.ProgramTransfer;
 import io.nuls.contract.vm.program.impl.ProgramInvoke;
@@ -233,11 +235,22 @@ public class NativeAddress {
             frame.vm.getTransfers().add(programTransfer);
         }
 
+        ProgramInternalCall programInternalCall = new ProgramInternalCall();
+        programInternalCall.setSender(programCall.getSender());
+        programInternalCall.setValue(programCall.getValue());
+        programInternalCall.setContractAddress(programCall.getContractAddress());
+        programInternalCall.setMethodName(programCall.getMethodName());
+        programInternalCall.setMethodDesc(programCall.getMethodDesc());
+        programInternalCall.setArgs(programCall.getArgs());
+
+        frame.vm.getInternalCalls().add(programInternalCall);
+
         ProgramResult programResult = frame.vm.getProgramExecutor().callProgramExecutor().call(programCall);
 
         frame.vm.addGasUsed(programResult.getGasUsed());
         if (programResult.isSuccess()) {
             frame.vm.getTransfers().addAll(programResult.getTransfers());
+            frame.vm.getInternalCalls().addAll(programResult.getInternalCalls());
             frame.vm.getEvents().addAll(programResult.getEvents());
             return programResult.getResult();
         } else if (programResult.isError()) {

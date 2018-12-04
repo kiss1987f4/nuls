@@ -51,11 +51,11 @@ public class CrowdsaleTest {
     private DBService dbService;
     private ProgramExecutor programExecutor;
 
-    private static final String CROWDSALE_ADDRESS = "TTaqTVJSPgw3RU9cgjQ5WdhpufmRT343";
-    private static final String TOKEN_ADDRESS = "TTavpNMqB5XnrzmypowtGaSQ7Gw9u63m";
-    private static final String WALLET_ADDRESS = "TTan6QCd5jeWRLomTyfauAHEQkbWQDTw";
-    private static final String SENDER = "TTanAZ7fAK6Y6ziuXGw5pQvqWhHnRQsQ";
-    private static final String BUYER = "TTapY7gpBm1DHEgwguSFFtuK3JvGZVKK";
+    private static final String CROWDSALE_ADDRESS = "Nse1mcqwGp4q3fg9YrxTe7h6p6A2YDgc";
+    private static final String TOKEN_ADDRESS = "Nse4EKo6AmTLo6LuTtc4FyYa6CoBNTGs";
+    private static final String WALLET_ADDRESS = "NsdyuQoZPY2kCR8TeEEz2MttKKX5F4bg";
+    private static final String SENDER = "Nse8cYQJUYR2ZTFgxK4gcnJG32snQMFK";
+    private static final String BUYER = "NsduCQ8hywspGwAXjPu7iBeuQUKWDsU2";
 
     @Before
     public void setUp() {
@@ -78,7 +78,7 @@ public class CrowdsaleTest {
         programCreate.args("1535012808001", "1635012808001", "10", WALLET_ADDRESS, "20000000", TOKEN_ADDRESS, "10000000");
         System.out.println(programCreate);
 
-        byte[] prevStateRoot = Hex.decode("68def44ff5e8cfaede55b572b78064f549a07683fa2a09e44ae252aa50b10ec0");
+        byte[] prevStateRoot = Hex.decode("af548ff7f3c069fe00b2138c2d9bbb1debffbb1363c480b5c84f78c273ca3043");
 
         ProgramExecutor track = programExecutor.begin(prevStateRoot);
         ProgramResult programResult = track.create(programCreate);
@@ -92,7 +92,7 @@ public class CrowdsaleTest {
 
     @Test
     public void testBuyTokens() throws IOException {
-        byte[] prevStateRoot = Hex.decode("5d62069546b3da54d9ae5ba3bdddcbe38a1a99b63c41846667b94288cec455ab");
+        byte[] prevStateRoot = Hex.decode("ac3c45009ad24bad2b091926e915cec3907910e4dc84010a98b59fe91e90ece2");
 
         balanceOf(prevStateRoot);
 

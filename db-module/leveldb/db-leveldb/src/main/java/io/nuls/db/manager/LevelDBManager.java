@@ -355,6 +355,8 @@ public class LevelDBManager {
         Long cacheSize = getModel(BASE_AREA_NAME, bytes(areaName + "-cacheSize"), Long.class);
         if (cacheSize != null) {
             options.cacheSize(cacheSize);
+        } else {
+            options.cacheSize(10L * 1048576L);
         }
         File file = new File(dbPath);
         DBFactory factory = Iq80DBFactory.factory;
@@ -661,7 +663,7 @@ public class LevelDBManager {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     //skip it
                 }
             }
@@ -695,7 +697,7 @@ public class LevelDBManager {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     //skip it
                 }
             }
@@ -728,7 +730,7 @@ public class LevelDBManager {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     //skip it
                 }
             }
@@ -772,7 +774,7 @@ public class LevelDBManager {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     //skip it
                 }
             }
@@ -818,7 +820,7 @@ public class LevelDBManager {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     //skip it
                 }
             }
@@ -874,7 +876,7 @@ public class LevelDBManager {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     //skip it
                 }
             }
@@ -903,7 +905,7 @@ public class LevelDBManager {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     //skip it
                 }
             }

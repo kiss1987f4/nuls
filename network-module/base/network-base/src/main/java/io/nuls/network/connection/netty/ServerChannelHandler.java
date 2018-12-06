@@ -65,18 +65,15 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
 
     private ConnectionManager connectionManager = ConnectionManager.getInstance();
 
-    private static long severChannelRegister = 0;
-
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         super.channelRegistered(ctx);
         SocketChannel channel = (SocketChannel) ctx.channel();
 
         String remoteIP = channel.remoteAddress().getHostString();
-        severChannelRegister++;
-//        Log.info("----------------------severChannel  Register count:" + severChannelRegister);
         //查看是否是本机尝试连接本机地址 ，如果是直接关闭连接
         if (networkParam.getLocalIps().contains(remoteIP)) {
+//            Log.info("----------------------本机尝试连接本机地址关闭 ------------------------- " + nodeId);
             ctx.channel().close();
             return;
         }
@@ -87,6 +84,7 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
         for (Node node : nodeMap.values()) {
             if (node.getIp().equals(remoteIP)) {
                 if (node.getType() == Node.OUT) {
+//                    Log.info("--------------- 相同ip外网连接   -----------------" + nodeId);
                     ctx.channel().close();
                     return;
 //
@@ -161,7 +159,12 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
             Node node = nodeManager.getNode(nodeId);
             if (node != null && node.isAlive()) {
                 ByteBuf buf = (ByteBuf) msg;
+//                NetworkThreadPool.doRead(buf, node);
+//              try {
                 connectionManager.receiveMessage(buf, node);
+                //} finally {
+                //    buf.release();
+                //}
             }
         } catch (Exception e) {
 //            System.out.println(" ---------------------- server channelRead exception------------------------- " + nodeId);
@@ -188,10 +191,10 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 //        Log.info("----------------- server exceptionCaught -------------------");
-        if (!(cause instanceof IOException)) {
+        if (!(cause instanceof IOException) ) {
             SocketChannel channel = (SocketChannel) ctx.channel();
             String nodeId = IpUtil.getNodeId(channel.remoteAddress());
-            Log.error("----------------nodeId:" + nodeId);
+            Log.error("----------------nodeId:" +nodeId);
             Log.error(cause);
 //            nodeManager.deleteNodeFromDB(nodeId);
 //            return;

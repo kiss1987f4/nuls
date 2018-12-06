@@ -46,6 +46,7 @@ public class LevelDBServiceImpl implements DBService {
     @Override
     public Result createArea(String areaName) {
         return LevelDBManager.createArea(areaName);
+        //return LevelDBManager.createArea(areaName, 10L * 1048576L);
     }
 
     @Override

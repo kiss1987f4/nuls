@@ -48,6 +48,8 @@ public class ProgramResult {
 
     private List<ProgramTransfer> transfers = new ArrayList<>();
 
+    private List<ProgramInternalCall> internalCalls = new ArrayList<>();
+
     private List<String> events = new ArrayList<>();
 
     public ProgramResult revert(String errorMessage) {
@@ -142,6 +144,14 @@ public class ProgramResult {
         this.transfers = transfers;
     }
 
+    public List<ProgramInternalCall> getInternalCalls() {
+        return internalCalls;
+    }
+
+    public void setInternalCalls(List<ProgramInternalCall> internalCalls) {
+        this.internalCalls = internalCalls;
+    }
+
     public List<String> getEvents() {
         return events;
     }
@@ -188,6 +198,9 @@ public class ProgramResult {
         if (transfers != null ? !transfers.equals(that.transfers) : that.transfers != null) {
             return false;
         }
+        if (internalCalls != null ? !internalCalls.equals(that.internalCalls) : that.internalCalls != null) {
+            return false;
+        }
         return events != null ? events.equals(that.events) : that.events == null;
     }
 
@@ -202,6 +215,7 @@ public class ProgramResult {
         result1 = 31 * result1 + (balance != null ? balance.hashCode() : 0);
         result1 = 31 * result1 + (nonce != null ? nonce.hashCode() : 0);
         result1 = 31 * result1 + (transfers != null ? transfers.hashCode() : 0);
+        result1 = 31 * result1 + (internalCalls != null ? internalCalls.hashCode() : 0);
         result1 = 31 * result1 + (events != null ? events.hashCode() : 0);
         return result1;
     }
@@ -218,6 +232,7 @@ public class ProgramResult {
                 ", balance=" + balance +
                 ", nonce=" + nonce +
                 ", transfers=" + transfers +
+                ", internalCalls=" + internalCalls +
                 ", events=" + events +
                 '}';
     }

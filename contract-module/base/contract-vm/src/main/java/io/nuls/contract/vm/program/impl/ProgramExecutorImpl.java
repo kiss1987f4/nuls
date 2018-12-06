@@ -343,6 +343,7 @@ public class ProgramExecutorImpl implements ProgramExecutor {
             }
 
             programResult.setTransfers(vm.getTransfers());
+            programResult.setInternalCalls(vm.getInternalCalls());
             programResult.setEvents(vm.getEvents());
             programResult.setBalance(getAccount(programInvoke.getContractAddress()).getBalance());
 
